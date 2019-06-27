@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ViewEncapsulation } from '@angular/core';
 import { DataService } from "../service/DataService";
 import { Satellites, Astronauts } from "../service/dataproperties";
-import { strictEqual } from 'assert';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/takeWhile';
+import 'rxjs/add/observable/timer'
 
 @Component({
   selector: 'app-dashboard',
@@ -15,25 +17,37 @@ export class DashboardComponent implements OnInit {
   public values: any[];
   public satellites = new Satellites();
   public astronauts = new Astronauts();
-  constructor(private dataService: DataService) { }
 
-  ngOnInit() {
-    this.fetchIssPosition();
+  alive = true;
+
+  constructor(private dataService: DataService) {
+    Observable.timer(0, 2000)
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
+        this.dataService.GetIss().subscribe((data: Satellites) =>
+          this.satellites = data
+        )
+      });
+      // this.satellites.velocity.toFixed(2);
+      // this.satellites.altitude.toFixed(2);
   }
 
-  public FetchIssData() {
-    setTimeout(
-      function() {
-        this.fetchIssPosition();
-      }, 5000);
+  public ngOnInit() {
+    this.fetchIssPosition();
   }
 
   public fetchIssPosition() {
     this.dataService
-      .GetIss<Satellites>()
-      .subscribe((data: Satellites) => { this.satellites = data; },
+      .GetIss<Astronauts>()
+      .subscribe((data: Astronauts) => {
+        this.astronauts = data;
+      },
         error => () => {
           console.log(error);
         });
+  }
+
+  ngOnDestroy() {
+    this.alive = false;
   }
 }

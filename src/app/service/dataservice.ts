@@ -1,10 +1,11 @@
 import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { ApiConfiguration } from "../config/apiconfig";
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class DataService {
+    
     constructor(private http: HttpClient, private configuration: ApiConfiguration) {
     }
     public GetIss<T>(): Observable<T> {
