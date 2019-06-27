@@ -18,5 +18,5 @@ export class Satellites
 export class Astronauts
 {
     name: string;
-    number: number;
+    craft: string;
 }

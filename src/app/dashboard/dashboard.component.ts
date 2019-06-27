@@ -16,20 +16,15 @@ import 'rxjs/add/observable/timer'
 export class DashboardComponent implements OnInit {
   public values: any[];
   public satellites = new Satellites();
-  public astronauts = new Astronauts();
-
-  alive = true;
+  public astronauts: Astronauts[];
+  public alive = true;
 
   constructor(private dataService: DataService) {
     Observable.timer(0, 2000)
       .takeWhile(() => this.alive)
       .subscribe(() => {
         this.dataService.GetIss().subscribe((data: Satellites) =>
-          this.satellites = data
-        )
-      });
-      // this.satellites.velocity.toFixed(2);
-      // this.satellites.altitude.toFixed(2);
+          this.satellites = data)});
   }
 
   public ngOnInit() {
@@ -38,9 +33,9 @@ export class DashboardComponent implements OnInit {
 
   public fetchIssPosition() {
     this.dataService
-      .GetIss<Astronauts>()
-      .subscribe((data: Astronauts) => {
-        this.astronauts = data;
+      .GetAstronaut<Astronauts[]>()
+      .subscribe((data: Astronauts[]) => {
+        this.astronauts = data["people"];
       },
         error => () => {
           console.log(error);
