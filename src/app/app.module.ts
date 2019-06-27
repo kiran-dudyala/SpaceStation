@@ -4,14 +4,13 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DataService } from './service/dataservice';
-import { ApiConfiguration } from './config/apiconfig';
+// import { DataService } from './service/dataservice';
+// import { ApiConfiguration } from './config/apiconfig';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { from } from 'rxjs';
+// import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,7 @@ import { from } from 'rxjs';
     NavbarComponent,
     SidebarComponent,
     FooterComponent,
-    DashboardComponent
+    //DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +27,7 @@ import { from } from 'rxjs';
     HttpClientModule,
     NgbModule.forRoot()
   ],
-  providers: [DataService, ApiConfiguration],
+  providers: [],//[DataService, ApiConfiguration],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
